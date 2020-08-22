@@ -1,0 +1,30 @@
+server:
+  port: 8891  #启动其他实例时需要修改端口号
+  servlet:
+    context-path: /zuul
+spring:
+  application:
+    name: zuul #服务的名字
+#注册到注册中心的地址
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8888/eureka
+
+zuul:
+  routes:
+    #服务提供者路由信息（名字是可以自定义的，没有什么特定规则，你能区分就好）
+    feign-consumer:
+      #配置对外的路径匹配
+      path: /feign/**
+      #配置调用的服务名（官方推荐使用）
+      serviceId: feign-consumer
+
+    #不推荐使用URL这种方式，看这样直接指定就无法使用负载均衡
+    #use-server-client-temp:
+      #path: /clientTemp/**
+      #配置调用的服务地址（不推荐使用）
+      #url: http://localhost:8101/
+
+    #这是另一种简化写法，直接使用（serviceId：path）
+    #feign-consumer: /client/**

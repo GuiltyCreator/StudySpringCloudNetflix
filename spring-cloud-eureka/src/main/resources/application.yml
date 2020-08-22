@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: eureka-service
+server:
+  port: 8888
+  servlet:
+    context-path: /
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    hostname: localhost
+  server:
+    #如果为true时，在15分钟内超过85%的客户端节点都没有正常的心跳，那么Eureka就认为客户端与注册中心出现了网络故障(比如网络故障或频繁的启动关闭客户端)，Eureka Server自动进入自我保护模式。不再剔除任何服务，当网络故障恢复后，该节点自动退出自我保护模式。
+    enable-self-preservation: false
+  client:
+    register-with-eureka: false  #不向注册中心注册自己,因为自己本身就是注册中心
+    fetch-registry: false  #false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
+    service-url:
+      #注册中心地址
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

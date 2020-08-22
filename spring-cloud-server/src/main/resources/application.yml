@@ -1,0 +1,20 @@
+server:
+  port: 8889  #启动其他实例时需要修改端口号
+  servlet:
+    context-path: /server
+spring:
+  application:
+    name: server-producer #服务的名字
+#注册到注册中心的地址
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8888/eureka
+#swagger
+swagger:
+  enabled: true
+  title: spring-cloud-server
+  description: 服务
+  contact:
+    name: 肖晟鹏
+    email: xiaocpa@digitalchina.com
